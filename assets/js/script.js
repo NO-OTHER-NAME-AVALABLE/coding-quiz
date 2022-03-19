@@ -183,8 +183,8 @@ var x = 0
 function displayQuestions(){
     questionEl.style.display = "block";
     if(x >= quizQuestions.length){
+      GameOver();
       x = 0;
-      displayQuestions();
     }else{
             questionEl.innerHTML = questions[x];
     for (const [key, value] of Object.entries(answer[x])){
@@ -270,19 +270,20 @@ function timer() {
   setTimeout(function() {  
     timerEl.innerHTML = "60";
     timerEl.innerHTML = time; 
-    time--;                  
-    if (time > 0) {         
-      timer();            
-    }else{
-      GameOver(); 
-      time = 60;
-    }                
+    time--;          
+      if (time > 0) {         
+        timer();            
+      }else{
+        GameOver(); 
+      }  
   }, 1000)
 }
 
 function GameOver(){
   clearScreen();
   checkHighScore();
+  time = 0;
+  time = 60;
 }
 
 var currentHighscore = localStorage.getItem("highscore");
