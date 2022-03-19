@@ -23,6 +23,7 @@ mainMenu();
 
 //the function that starts the game
 function startGame(){
+  score = 0;
   clearScreen();
   timer();
   timerEl.innerHTML = "60";
