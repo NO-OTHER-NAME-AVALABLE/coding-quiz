@@ -28,9 +28,7 @@ function startGame(){
   timer();
   timerEl.innerHTML = "60";
   timerEl.style.display = "block";
-
   displayQuestions();
-  console.log(localStorage.getItem("highscore"));
 }
 
 //the question and answer elements
@@ -269,6 +267,7 @@ var time = 60;
 //a timer loop function
 function timer() {         
   setTimeout(function() {  
+    time = 60;
     timerEl.innerHTML = "60";
     timerEl.innerHTML = time; 
     time--;          
@@ -284,7 +283,6 @@ function GameOver(){
   clearScreen();
   checkHighScore();
   time = 0;
-  time = 60;
 }
 
 var currentHighscore = localStorage.getItem("highscore");
