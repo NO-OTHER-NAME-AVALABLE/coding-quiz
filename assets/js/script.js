@@ -10,7 +10,6 @@ document.getElementById("main-menu").addEventListener("click", quit);
 function quit(){
   clearScreen();
   mainMenu();
-  time = 0;
 }
 
 //the function to show the main menu
@@ -23,6 +22,7 @@ mainMenu();
 
 //the function that starts the game
 function startGame(){
+  time = 60;
   score = 0;
   clearScreen();
   timer();
@@ -265,24 +265,25 @@ dEl.addEventListener("click", checkAnswerD);
 var time = 60;      
 
 //a timer loop function
-function timer() {         
+function timer() {  
+     
   setTimeout(function() {  
-    time = 60;
     timerEl.innerHTML = "60";
     timerEl.innerHTML = time; 
     time--;          
       if (time > 0) {         
         timer();            
       }else{
-        GameOver(); 
+        GameOver();
       }  
+      return;
   }, 1000)
 }
 
 function GameOver(){
+  time = 0;
   clearScreen();
   checkHighScore();
-  time = 0;
 }
 
 var currentHighscore = localStorage.getItem("highscore");
