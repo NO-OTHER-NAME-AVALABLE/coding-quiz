@@ -22,6 +22,7 @@ mainMenu();
 
 //the function that starts the game
 function startGame(){
+  scoreEl.innerHTML = "score: 0"
   time = 60;
   score = 0;
   clearScreen();
@@ -266,7 +267,6 @@ var time = 60;
 
 //a timer loop function
 function timer() {  
-     
   setTimeout(function() {  
     timerEl.innerHTML = "60";
     timerEl.innerHTML = time; 
