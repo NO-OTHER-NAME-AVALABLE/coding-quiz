@@ -1,3 +1,4 @@
+//html element variables
 const startGameButton = document.getElementById("play-game");
 const highscoreButton = document.getElementById("view-highscore");
 const timerEl = document.getElementById("timer");
@@ -5,27 +6,40 @@ startGameButton.addEventListener("click", startGame);
 
 // highscoreButton.addEventListener("click", );
 var score = 0;
+document.getElementById("main-menu").addEventListener("click", quit);
+function quit(){
+  clearScreen();
+  mainMenu();
+  time = 0;
+}
+
+//the function to show the main menu
 function mainMenu(){
 highscoreButton.style.display = "block";
 startGameButton.style.display = "block";
+score = 0;
 }
 mainMenu();
 
+//the function that starts the game
 function startGame(){
-  highscoreButton.style.display = "none";
-  startGameButton.style.display = "none";
-  timerEl.style.display = "block";
-  time = 60;
+  clearScreen();
   timer();
-  displayQuestions();
+  timerEl.innerHTML = "60";
+  timerEl.style.display = "block";
 
+  displayQuestions();
+  console.log(localStorage.getItem("highscore"));
 }
 
+//the question and answer elements
 const questionEl = document.getElementById("question");
 const aEl = document.getElementById("a");
 const bEl = document.getElementById("b");
 const cEl = document.getElementById("c");
 const dEl = document.getElementById("d");
+
+// the array of questions 
 const quizQuestions = [
     {
       question: "Who invented JavaScript?",
@@ -165,6 +179,7 @@ console.log(answer);
 console.log(questions);
 console.log(correctAnswers);
 var x = 0
+//the function to display the questions and all of the answers for the given question
 function displayQuestions(){
     questionEl.style.display = "block";
     if(x >= quizQuestions.length){
@@ -191,6 +206,7 @@ function checkAnswerA(){
       scoreEl.innerHTML = "score: " + score;
     }else{
       rightOrWrongEl.innerHTML = "Hahaha not even close!!";
+      rightOrWrongEl.style.display = "block";
         time = time - 5;
     }
     x++;
@@ -204,6 +220,7 @@ function checkAnswerB(){
       scoreEl.innerHTML = "score: " + score;
     }else{
       rightOrWrongEl.innerHTML = "Hahaha not even close!!";
+      rightOrWrongEl.style.display = "block";
         time = time - 5;
     }
     x++;
@@ -217,6 +234,7 @@ function checkAnswerC(){
       scoreEl.innerHTML = "score: " + score;
     }else{
       rightOrWrongEl.innerHTML = "Hahaha not even close!!";
+      rightOrWrongEl.style.display = "block";
         time = time - 5;
     }
     x++;
@@ -230,6 +248,7 @@ function checkAnswerD(){
       rightOrWrongEl.innerHTML = "Nice One!!";
     }else{
       rightOrWrongEl.innerHTML = "Hahaha not even close!!";
+      rightOrWrongEl.style.display = "block";
         time = time - 5;
     }
     x++;
@@ -246,26 +265,63 @@ dEl.addEventListener("click", checkAnswerD);
 //time for the timer
 var time = 60;      
 
-//a timer loop
-
+//a timer loop function
 function timer() {         
   setTimeout(function() {  
+    timerEl.innerHTML = "60";
     timerEl.innerHTML = time; 
     time--;                  
     if (time > 0) {         
       timer();            
-    }else{GameOver();}                
+    }else{
+      GameOver(); 
+      time = 60;
+    }                
   }, 1000)
 }
 
 function GameOver(){
+  clearScreen();
+  checkHighScore();
+}
+
+var currentHighscore = localStorage.getItem("highscore");
+var highscore = localStorage.getItem("highscore");
+var highScoreName = localStorage.getItem("highScoreName")
+//function to see if a new highscore is achieved
+function checkHighScore(){
+if(highscore !== null){
+    if (score > highscore) {
+
+        const name = prompt('You got a highscore! Enter name:');
+        localStorage.setItem("highScoreName", name)
+        localStorage.setItem("highscore", score);
+    }
+}
+else{
+    localStorage.setItem("highscore", score)
+}
+mainMenu();
+}
+
+const highscoreEl = document.getElementById("high-score");
+highscoreButton.addEventListener("click", viewHighscore);
+//function for the highscore button
+function viewHighscore(){
+highscoreEl.innerHTML = "Our Current Champion Is " + highScoreName + " with " + highscore + " points";
+highscoreEl.style.display = "block";
+}
+
+//function to clear the screen 
+function clearScreen(){
+  highscoreButton.style.display = "none";
+  startGameButton.style.display = "none";
   aEl.style.display = "none";
   bEl.style.display = "none";
   cEl.style.display = "none";
   dEl.style.display = "none";
   questionEl.style.display = "none";
   timerEl.style.display = "none";
-  mainMenu();
+  rightOrWrongEl.style.display = "none";
+  highscoreEl.style.display = "none";
 }
-
-function highscore

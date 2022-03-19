@@ -50,7 +50,7 @@ body{
     display: none;
 }
 
-#play-game, #view-highscore, #question, #timer, #a, #b, #c, #d {
+#play-game, #view-highscore, #question, #timer, #a, #b, #c, #d, #high-score {
     display: none;
 }
 
@@ -62,7 +62,7 @@ body{
   background-color: var(--maincolor);
 }
 
-#question {
+#question, #high-score {
     color: black;
     background-color: var(--maincolor);
     border-radius: 25px;
